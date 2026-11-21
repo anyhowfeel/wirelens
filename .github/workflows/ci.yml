@@ -171,7 +171,7 @@ jobs:
           choco install innosetup -y --no-progress
           $ver = (Select-String -Path Cargo.toml -Pattern '^version' | Select-Object -First 1).Line.Split('"')[1]
           & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$ver" packaging\windows\wirelens.iss
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: wirelens-${{ matrix.name }}
           path: dist/*
@@ -209,7 +209,7 @@ jobs:
           # makepkg finds the tarball next to the PKGBUILD and skips the download.
           su builder -c 'cd /build && makepkg -f --nodeps --noconfirm'
           cp /build/*.pkg.tar.zst dist/
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: wirelens-linux-x86_64-arch
           path: dist/*
